@@ -7,6 +7,27 @@ var chats = require('./routes/chats');
 var rooms = require('./routes/rooms');
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/rollingpaint')
+
+var UserSchema = mongoose.Schema({
+    username: String,
+    password: String
+});
+
+var User = mongoose.model('User', UserSchema);
+var ddang = new User({
+  username: 'ddang',
+  password: '1234'
+});
+
+console.log(ddang.username);
+
+ddang.save(function(err, ddang){
+  if(err) return console.console.error(err);
+  console.log(ddang.password);
+});
+
 app.use(express.static('www'));
 app.use('/scores', scores);
 app.use('/users', users);
